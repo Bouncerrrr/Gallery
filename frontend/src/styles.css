@@ -1,0 +1,12 @@
+
+html{
+  height: auto;
+  width: 100%;
+  background-blend-mode: screen;
+  /*background: linear-gradient(#4b496d, #AB7BB5), url('./spacebg.png');*/
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-color: #2A2924 ;
+}
+

@@ -1,0 +1,21 @@
+CREATE TABLE TagModel (
+                     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                     name VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE ImageModel (
+                       id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                       content BYTEA NOT NULL,
+                       thumbnail BYTEA NOT NULL,
+                       name VARCHAR(255) NOT NULL,
+                       description TEXT NOT NULL,
+                       mood VARCHAR(255)
+);
+
+CREATE TABLE Image_Tag (
+                           image_id BIGINT,
+                           tag_id BIGINT,
+                           FOREIGN KEY (image_id) REFERENCES ImageModel(id) ON DELETE CASCADE,
+                           FOREIGN KEY (tag_id) REFERENCES TagModel(id) ON DELETE CASCADE,
+                           PRIMARY KEY (image_id, tag_id)
+);

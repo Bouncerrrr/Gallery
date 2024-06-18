@@ -1,0 +1,47 @@
+<div class="container rounded" style="background: linear-gradient(to bottom, rgba(58, 50, 66, 1), rgba(58, 50, 66, 0)); padding: 5px 5px; color: white;">
+  <form id="uploadForm" (ngSubmit)="onUpload()">
+    <div class="row d-flex justify-content-center" style="padding-left: 20px;">
+      <div class="col-md">
+        <h2>Upload your image</h2>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="column col-md justify-content-center" style="padding-left: 20px;">
+        <div class="form-group" style="padding: 20px;">
+          <button type="button" class="btn btn-outline-primary" style="background-color: #C3EC7C; border: none; color: #2A2924;" (click)="fileInput.click()">
+            Select Image
+          </button>
+          <input type="file" #fileInput hidden (change)="onFileSelected($event)">
+          <div>Preview image:</div>
+          <img *ngIf="previewImage" [src]="previewImage" class="rounded-lg" style="max-width: 200px; max-height: 200px;">
+          <img *ngIf="!previewImage && sanitizedPreviewImage" [src]="sanitizedPreviewImage" alt="Sanitized Preview" style="max-width: 200px; max-height: 200px;">
+        </div>
+      </div>
+
+      <div class="col-md">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" [(ngModel)]="newName">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description" [(ngModel)]="newDescription"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="mood" style="margin-right: 10px;">Select Mood:</label>
+          <select class="form-control" id="mood" name="mood" [(ngModel)]="newMood">
+            <option *ngFor="let option of moodOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          <input type="text" class="form-control" id="tags" name="tags" placeholder="Enter tags" [(ngModel)]="tagsInput">
+        </div>
+        <button type="submit" class="btn btn-primary" style="background-color: #C3EC7C; border: none; color: #2A2924;">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

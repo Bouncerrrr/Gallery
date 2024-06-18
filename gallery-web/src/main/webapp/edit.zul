@@ -1,0 +1,75 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="./templates/master-template.zul" ?>
+<?page complete="true"?>
+
+<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.example.viewModel.EditViewModel')">
+
+        <!-- Page content -->
+        <div class="container rounded"
+             style="background: linear-gradient(to bottom, rgba(58, 50, 66, 1), rgba(58, 50, 66, 0)); padding: 5px 5px; color: white;">
+            <xh:form id="editForm">
+                <div class="row d-flex justify-content-center" style="padding-left: 20px;">
+                    <div class="column">
+                        <h2>Edit your post</h2>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                    <div class="column justify-content-center" style="padding-left: 20px;">
+                        <div class="form-group" style="padding: 20px;">
+                            <zul:button class="btn btn-outline-primary"
+                                        iconSclass="z-icon-picture-o"
+                                        upload="true, accept=.png|.jpg"
+                                        onUpload="@command('fetchFile', upload=event)"
+                                        type="button"
+                                        autodisable="self"
+                                        style="background-color: #C3EC7C; border: none; color: #2A2924;"
+                            >
+                                Select ImageModel
+                            </zul:button>
+                            <div>Preview image:</div>
+
+                            <zul:image class="rounded-lg"
+                                       style=" width: 200px; height: 200px;"
+                                       content="@load(vm.thumbnail)
+                                           @converter('com.example.converter.AImageConverter')"/>
+                        </div>
+
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <xh:input type="text" class="form-control" id="name" placeholder="Enter name"
+                                      value="@bind(vm.name)"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <xh:textarea class="form-control" id="description" rows="3" placeholder="Enter description"
+                                         value="@bind(vm.description)"></xh:textarea>
+                        </div>
+                        <div class="form-group" >
+                            <label for="mood" style="margin-right: 10px;">Select Mood:</label>
+                            <zul:combobox readonly="true" model="@load(vm.dropdownModel)" selectedItem="@bind(vm.mood)">
+                                <zul:template name="model">
+                                    <zul:comboitem label="@load(each)" />
+                                </zul:template>
+                            </zul:combobox>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">Tags</label>
+                            <xh:input type="text" class="form-control" id="tags" placeholder="Enter tags"
+                                      data-taggle-placeholder="Press Enter to add tags" value="@bind(vm.tags)"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <xh:button type="button" class="btn btn-primary"
+                               style="background-color: #C3EC7C; border: none; color: #2A2924;"
+                               onClick="@command('saveEditedImageToDatabase')">Submit
+                    </xh:button>
+                </div>
+            </xh:form>
+        </div>
+
+    </xh:div>
+</zk>

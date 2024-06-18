@@ -1,0 +1,65 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="./templates/master-template.zul" ?>
+<?page complete="true"?>
+
+<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.example.viewModel.ImageViewModel')">
+
+        <!-- Page content -->
+        <div class="container rounded"
+             style="background: linear-gradient(to bottom, rgba(58, 50, 66, 1), rgba(58, 50, 66, 0)); padding: 5px 5px; color: white;">
+            <div class="row d-flex justify-content-center">
+
+                <zul:image class="rounded-lg"
+                           style="max-width: 90%; max-height: 90%; padding: 5px;"
+                           content="@bind(vm.imageDto.content) @converter('com.example.converter.AImageConverter')"/>
+            </div>
+            <div class="row d-flex justify-content-center" style="margin: 10px; text-align:center;">
+                <h2>${vm.imageDto.name}</h2>
+            </div>
+            <div class="row d-flex justify-content-center"
+                 style="background-color: rgba(58, 50, 66, 0.5);
+                            padding: 20px;
+                            border-radius: 5px;
+                            color: white;
+                            max-width: 90%;
+                            overflow: auto;
+                            margin: auto;">
+                <p>${vm.imageDto.description}</p>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+                <p>Feeling: ${vm.imageDto.mood}</p>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div  style="background-color: rgba(58, 50, 66, 0.5);
+                            padding: 10px;
+                            border-radius: 5px;
+                            max-width: 90%;
+                            color: white;">
+                    <p>Tags:   ${vm.tags}</p>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center" style="padding: 10px">
+                <div class="column">
+                    <xh:button type="button"
+                               class="btn btn-danger"
+                               style="margin-right: 10px;"
+                               onClick="@command('deleteImage')">
+                        Delete <i class="bi bi-trash-fill"></i>
+                    </xh:button>
+                </div>
+                <div class="column">
+                    <xh:button type="button"
+                               class="btn btn-primary"
+                               style="background-color: #C3EC7C; border: none; color: #2A2924;"
+                               onClick="@command('goToEditImage', id=vm.imageDto.id)">
+                        Edit <i class="bi bi-pencil-fill"></i>
+                    </xh:button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </xh:div>
+</zk>

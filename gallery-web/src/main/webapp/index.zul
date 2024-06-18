@@ -1,0 +1,58 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="./templates/master-template.zul"?>
+<?page complete="true"?>
+
+<zk xmlns="native" xmlns:xh="xhtml" xmlns:sh="shadow" xmlns:zul="http://www.zkoss.org/2005/zul">
+    <xh:div self="@{define(pageContent)}" viewModel="@id('vm') @init('com.example.viewModel.ShowcaseViewModel')">
+
+        <!-- Page content -->
+        <zul:div class="row">
+            <sh:forEach items="@load(vm.pagedList.content)">
+                <div class="col-lg-3 col-md-6 col-12 offset-0 p-2">
+                    <xh:div class="border rounded-lg shadow-sm"
+                            style="height: 270px; cursor: pointer;
+                                       background-color: rgba(0, 0, 0, 0.5); position: relative;">
+                        <zul:image class="rounded-lg"
+                                   style="max-width: 100%;
+                                          max-height: 80%;
+                                          position: absolute;
+                                          top: 5%; left: 50%;
+                                          transform: translateX(-50%);
+                                          padding-left: 10px;
+                                          padding-right: 10px;
+                                          padding-top: 10px;"
+                                   content="@bind(each.thumbnail) @converter('com.example.converter.AImageConverter')"
+                                   onClick="@command('redirectToImagePage', id = each.id)"/>
+
+                        <xh:label value="@bind(each.name)"
+                                  style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
+                               color: white; text-align: center; ">${each.name} </xh:label>
+
+                    </xh:div>
+                </div>
+            </sh:forEach>
+        </zul:div>
+
+        <!-- Paging controls -->
+        <div class="row d-flex justify-content-center" style="padding: 10px">
+            <div class="column">
+                <xh:button class="btn btn-primary"
+                           id="backButton"
+                           label="Back"
+                           style="margin-right: 10px; background-color: #C3EC7C; border: none; color: #2A2924;"
+                           onClick="@command('previousPage')">
+                    <i class="bi bi-arrow-left"></i>
+                </xh:button>
+            </div>
+            <div class="column">
+                <xh:button class="btn btn-primary"
+                           id="nextButton"
+                           label="Next"
+                           style="background-color: #C3EC7C; border: none; color: #2A2924;"
+                           onClick="@command('nextPage')">
+                    <i class="bi bi-arrow-right"> </i>
+                </xh:button>
+            </div>
+            <paging id="paging" pageSize="8" model="@load(vm.pagedList)"/>
+        </div>
+    </xh:div>
+</zk>

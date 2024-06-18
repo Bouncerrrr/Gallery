@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="container rounded"
+       style="background: linear-gradient(to bottom, rgba(58, 50, 66, 1), rgba(58, 50, 66, 0)); padding: 5px 5px; color: white;">
+
+    <div *ngIf="image" class="row d-flex justify-content-center">
+      <!-- Display image details -->
+      <img [src]="'data:image/jpg;base64,' + image.content" [alt]="image.name"
+           class="rounded-lg"
+           style="max-width: 90%; max-height: 90%; padding: 5px;"/>
+      <div class="row d-flex justify-content-center" style="margin: 10px; text-align:center;">
+        <h2>{{ image.name }}</h2>
+      </div>
+      <div class="row d-flex justify-content-center "
+           style="background-color: rgba(58, 50, 66, 0.5);
+                                padding: 20px;
+                                border-radius: 5px;
+                                color: white;
+                                max-width: 90%;
+                                overflow: auto;
+                                margin: auto;
+                                text-align:center;">
+        <p>{{ image.description }}</p>
+      </div>
+      <div class="row d-flex justify-content-center" style="margin: 10px; text-align:center;">
+        <p>Feeling: {{ image.mood }}</p>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div  style="background-color: rgba(58, 50, 66, 0.5);
+                                padding: 10px;
+                                border-radius: 5px;
+                                color: white;
+                                text-align:center;">
+          <p>{{ tagsStringArray }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button color="warn" (click)="deleteImage()">Delete</button>
+  <button mat-raised-button color="primary" (click)="redirectToEdit()">Edit Image</button>
+</div>

@@ -1,0 +1,42 @@
+<div class="container">
+  <div *ngIf="images.length > 0">
+    <!-- Display images in rows -->
+    <div class="row  d-flex justify-content-center">
+      <!-- Display images in a row -->
+      <ng-container *ngFor="let image of images; let i = index;" class="col-lg-3 col-md-6 col-12 offset-0 p-2">
+        <div class="border rounded-lg shadow-sm"
+             style="height: 270px; width: 250px; cursor: pointer;
+             background-color: rgba(0, 0, 0, 0.5); position: relative;
+              margin-left: 20px; margin-bottom: 20px">
+          <img [src]="'data:image/jpg;base64,' + image.thumbnail" alt="{{ image.name }}"
+               class="rounded-lg"
+               (click)="redirectToImage(image.id)"
+               style="max-width: 100%;
+                      max-height: 80%;
+                      position: absolute;
+                      top: 5%; left: 50%;
+                      transform: translateX(-50%);
+                      padding-left: 10px;
+                      padding-right: 10px;
+                      padding-top: 10px;"/>
+          <label
+            style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
+            color: white; text-align: center; ">{{ image.name }} </label>
+        </div>
+        <!-- Break to start a new row after every 4th image -->
+        <div *ngIf="(i + 1) % 4 === 0" class="w-100"></div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Pagination controls -->
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <mat-paginator hidePageSize="true" [length]="totalPages" [pageSize]="1" [pageSizeOptions]="[]"
+                     (page)="onPageChange($event)" style = "display: flex;
+  justify-content: center;">
+      </mat-paginator>
+    </div>
+  </div>
+
+</div>
